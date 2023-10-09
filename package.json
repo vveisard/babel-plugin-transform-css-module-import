@@ -1,0 +1,33 @@
+{
+  "name": "babel-plugin-transform-css-module-import",
+  "description": "Babel plugin to transform default CSS module imports to a variable (const) declaration.",
+  "keywords": [
+    "babel",
+    "plugin",
+    "css module",
+    "server-side transformation"
+  ],
+  "version": "0.0.2",
+  "type": "module",
+  "main": "./out/index.js",
+  "files": "./out",
+  "license": "CC0-1.0",
+  "author": {
+    "name": "Walter Blacke",
+    "email": "walter.blacke@vegabyte.studio"
+  },
+  "dependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/types": "^7.23.0",
+    "@types/babel__core": "^7.20.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.4",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "build": "tsup ./src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

@@ -1,4 +1,5 @@
-import { PluginObj, PluginPass } from "./deps.ts";
+import { dirname, join } from "node:path";
+import { type PluginObj, type PluginPass } from "@babel/core";
 import {
   identifier,
   ObjectExpression,
@@ -7,11 +8,7 @@ import {
   stringLiteral,
   variableDeclaration,
   variableDeclarator,
-} from "./deps.ts";
-import { 
-  dirname,
-  join
-} from "./deps.ts";
+} from "@babel/types";
 
 /**
  * Exports of a CSS module.
@@ -43,8 +40,8 @@ interface PluginOptions {
 
 /**
  * Create an {@link ObjectExpression} from {@link CSSModuleExports}.
- * @param cssModuleExports
- * @returns
+ * @param cssModuleExports exports of a CSS module. 
+ * @returns An {@link ObjectExpression} 
  */
 function createObjectExpressionFromCssModuleExports(
   cssModuleExports: CSSModuleExports,
@@ -60,7 +57,7 @@ function createObjectExpressionFromCssModuleExports(
 }
 
 /**
- * Check if the source of an import decleration matches the pattern of a css module..
+ * Check if the source of an import decleration matches the pattern of a css module.
  */
 function importDeclarationSourceMatches(source: string) {
   const parts = source.split(".");
@@ -114,6 +111,13 @@ function plugin(
         }
 
         const absoluteSourceFilePath = state.filename;
+
+        if (absoluteSourceFilePath === undefined) {
+          throw new Error(
+            `Invalid state! state.filename missing. (Did you define options.filename?)`,
+          );
+        }
+
         const absoluteSourceDirPath = dirname(
           absoluteSourceFilePath,
         );
